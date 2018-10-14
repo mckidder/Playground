@@ -1,0 +1,24 @@
+U
+9
+A
+B
+C
+D
+E
+F
+G
+H
+I
+A, H
+A, C
+A, D
+B, H
+B, D
+B, F
+B, I
+C, E
+D, E
+E, F
+E, G
+F, I
+F, G

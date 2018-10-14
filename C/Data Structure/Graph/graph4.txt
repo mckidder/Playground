@@ -1,0 +1,23 @@
+D
+8
+A
+B
+C
+D
+E
+F
+G
+H
+A, B
+A, C
+A, D
+B, E
+B, F
+C, F
+C, G
+D, G
+E, H
+F, E
+F, G
+F, H
+G, H

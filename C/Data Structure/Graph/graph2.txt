@@ -1,0 +1,16 @@
+D
+6
+A
+B
+C
+D
+E
+F
+A, D
+B, A
+B, E
+C, D
+C, F
+D, B
+E, C
+F, A

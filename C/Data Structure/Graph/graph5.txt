@@ -1,0 +1,25 @@
+U
+11
+A
+B
+C
+D
+E
+F
+G
+H
+I
+J
+K
+A, B
+A, C
+A, D
+A, E
+B, F
+B, H
+C, G
+D, H
+E, I
+G, I
+I, J
+J, K
