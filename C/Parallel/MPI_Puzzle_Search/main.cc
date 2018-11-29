@@ -2,9 +2,6 @@
   File:          main.cc                              
   Description:   A program for solving the word find puzzle
                  using the simple pool of tasks model.
-                                                         
-  Author:        Dana Vrajitoru, IUSB
-  Course:        B424 B524 Parallel Programming 
   Date:          November 2018
 ***********************************************************/
 

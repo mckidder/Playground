@@ -2,10 +2,7 @@
   File:          master.cc                            
   Description:   A program that solves a word find puzzle.
 
-                 Functions for the master. 
-                                                         
-  Author:        Dana Vrajitoru, IUSB 
-  Course:        B424 B524 Parallel Programming                        
+                 Functions for the master.                     
   Date:          November 2018
 ************************************************************************/
 
@@ -80,13 +77,8 @@ void Finish_all(int nr_workers, char *word, Puzzle &the_puzzle)
 // for, two for the position where it was found, and two for the
 // direction in which it was found. The master must then call the
 // Delete method from the puzzle with these five parameters, and then
-// return the identity of the worker. The receive must be called with
-// MPI_ANY_SOURCE for the source. The identity of the worker can be
-// found in status.MPI_SOURCE. You can either send/receive an array of
-// 5 integers, or use 5 messages, but make sure that they come from
-// the same process, meaning that after you get the id from the first
-// message, you must use that as the source in the other receive
-// messages. A size of 0 should mean that the word was not found in
+// return the identity of the worker.
+// A size of 0 should mean that the word was not found in
 // the grid. The function should return the identity of the process it
 // has received the result from.
 int Recv_result(Puzzle &the_puzzle)
@@ -95,22 +87,19 @@ int Recv_result(Puzzle &the_puzzle)
     int tag=0;
     MPI_Status status;
 
+    // Get the size of the word from the workers and identify the source
     MPI_Recv(&size, 1, MPI_INT, MPI_ANY_SOURCE, tag, MPI_COMM_WORLD, &status);
     src = status.MPI_SOURCE;
-    //cout << "src " << src << " and size " << size << endl;
-    MPI_Recv(&posr, 1, MPI_INT, src, tag, MPI_COMM_WORLD, &status);
 
+    // Using the identified worker, receive its position and direction
+    MPI_Recv(&posr, 1, MPI_INT, src, tag, MPI_COMM_WORLD, &status);
     MPI_Recv(&posc, 1, MPI_INT, src, tag, MPI_COMM_WORLD, &status);
 
     MPI_Recv(&rdir, 1, MPI_INT, src, tag, MPI_COMM_WORLD, &status);
-
     MPI_Recv(&cdir, 1, MPI_INT, src, tag, MPI_COMM_WORLD, &status);
     
-    
-    //if (size != 0)
-        //cout << "src " << src << " and size " << size << " and posr " << posr << " and posc " << posc << " and rdir " << rdir << " and cdir " << cdir << endl;
-        the_puzzle.Delete_word(size, posr, posc, rdir, cdir);
-    
-    
+    // Overwrite found words or perform no operation if size is zero
+    the_puzzle.Delete_word(size, posr, posc, rdir, cdir);
+        
     return src;
 }

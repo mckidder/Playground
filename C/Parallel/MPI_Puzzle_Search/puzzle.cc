@@ -2,10 +2,7 @@
   File:          puzzle.cc
   Description:   A program that solves a word find puzzle.
                  Implementation of a class handling the puzzle and the 
-                 solving functions.
-                                                         
-  Author:        Dana Vrajitoru, IUSB 
-  Course:        B424 B524 Parallel Programming                        
+                 solving functions.                     
   Date:          November 2018
 ************************************************************************/
 
@@ -19,7 +16,7 @@ using namespace std;
 Puzzle::Puzzle(int nrows, int ncols)
     : grid(NULL), rows(nrows), cols(ncols)
 {
-    // We need to allocate nrows x (nrcols+1) to be able to store
+    // Allocate nrows x (nrcols+1) to be able to store
     // a '\0' character at the end and read a whole row of the
     // puzzle at a time. 
     if (nrows && ncols)
@@ -127,7 +124,7 @@ bool Puzzle::Check_word(char *word, int posr, int posc, int rdir, int cdir)
 // Finding a word in the grid. It must return the position [rpos,
 // cpos] where it found the word and the directions in which it found
 // it. An example is given for horizontal forward and diagonal
-// backwards. The student must complete the search in 8 directions.
+// backwards.
 bool Puzzle::Find_word(char *word, int &posr, int &posc, int &rdir, int &cdir)
 {
     for (posr = 0; posr < rows; posr++)
@@ -176,42 +173,42 @@ bool Puzzle::Find_word(char *word, int &posr, int &posc, int &rdir, int &cdir)
     return false;
 }
 
-// This function should overwrite a word of the given size in the grid
+// Overwrite a word of the given size in the grid
 // by spaces, starting from the given position and following the
-// directions indicated by the appropriate parameters. We'll assume
+// directions indicated by the appropriate parameters. Assuming
 // that the word has been found at that position, but if the function
 // gets out of the grid because of an error somewhere else in the
 // program, the function should output an error message. 
 void Puzzle::Delete_word(int size, int posr, int posc, int rdir, int cdir)
 {
-    bool found = true;
     int i, j, k;
-    
+    // Set beginning row and column coordinates
     i = posr;
     j = posc;
     k = 0;
-    //cout << "size " << size << endl;
+    // Overwrite letters until word size is reached
+    // or we attempt to iterate outside of the grid.
     while (k < size && issafe(i, j)) {
         (*this)[i][j] = ' ';
-        //cout << "*this\n" << (*this)[i][j] << endl;
         k++;
+        // Follow directions regarding how the word is placed in the grid
         i = i + rdir;
         j = j + cdir;
     }
-    //cout << "k " << k << endl;
-    //if (!issafe(i,j))
-        //cout << "Error deleting word by attempting to delete outside of the grid.\n";
 }
 
-// We assume here that the master has deleted all of the letters that
-// belong to a word from the table, meaning that it has overwriten
-// them by spaces. This function should print the remaining letters
-// with just a space between them and with no endlines except for one
-// at the end, and also tell the user in the beginning that this is
-// the secret message or solution to the puzzle.
+// Assume the master has deleted all of the letters
+// that belong to a word from the table, meaning that it has
+// overwriten them by spaces. This function prints the
+// remaining letters with just a space between them and with no
+// endlines except for one at the end, and also tell the user in the
+// beginning that this is the secret message or solution to the
+// puzzle.
 void Puzzle::Print_secret_message()
 {
     cout << "The secret message is the following.\n";
+    // Search from left to right, top to bottom for non-deleted letters
+    // to find the secret message.
     for (int i=0; i<rows; i++) {
         for (int j=0; j< cols; j++)
             if ((*this)[i][j] != ' ')

@@ -1,9 +1,6 @@
 /************************************************************************
   File:          worker.cc                             
-  Description:   Functions for the workers.
-                                                         
-  Author:        Dana Vrajitoru, IUSB 
-  Course:        B424 B524 Parallel Programming                        
+  Description:   Functions for the workers.                      
   Date:          November 2018
 ************************************************************************/
 
@@ -45,7 +42,8 @@ void Worker(int proc_id)
 void Send_empty_result()
 {
     int value = 0;
-
+    // Send 5 integer 0's to master that correlate to the size, 
+    // position, and direction.
     for(int i = 0; i < 5; i++){
         MPI_Send(&value, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
     }
@@ -62,15 +60,18 @@ void Process_word(char *word, Puzzle &the_puzzle)
     int tag=0;
     bool found = false;
     MPI_Status status;
-    
+
+    // Find size of the word and the amount of rows and cols in the grid
     size = strlen(word);
     rows = the_puzzle.Rows();
     cols = the_puzzle.Cols();
 
-    for (int i=0; i<rows; i++) {
+    // Process rows and columns until the word is found
+    for (int i=0; i < rows && !found; i++) {
         posr = i;
-        for (int j=0; j< cols; j++)
+        for (int j=0; j < cols && !found; j++){
             posc = j;
+            // If word is found update the master and stop looking
             if (the_puzzle.Find_word(word, posr, posc, rdir, cdir)){
                 MPI_Send(&size, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
                 MPI_Send(&posr, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
@@ -79,8 +80,10 @@ void Process_word(char *word, Puzzle &the_puzzle)
                 MPI_Send(&cdir, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
                 found = true;
             }
+        }
 
     }
+    // If it was not found, update the master with an empty result
     if (!found)
         Send_empty_result();        
 

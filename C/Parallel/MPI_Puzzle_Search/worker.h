@@ -1,9 +1,6 @@
 /************************************************************************
   File:          worker.h                              
-  Description:   Functions for the workers.
-                                                         
-  Author:        Dana Vrajitoru, IUSB 
-  Course:        B424 B524 Parallel Programming                        
+  Description:   Functions for the workers.                      
   Date:          November 2018
 ************************************************************************/
 

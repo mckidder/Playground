@@ -4,7 +4,7 @@
                  Declaration of a class handling the puzzle and the 
                  solving functions.
                                                          
-  Author:        Dana Vrajitoru, IUSB 
+  Author:        Dana Vrajitoru and Matt Kidder, IUSB 
   Course:        B424 B524 Parallel Programming                        
   Date:          November 2018
 ************************************************************************/
@@ -48,27 +48,24 @@ public:
     // backward, +1 goes forward, 0 means constant row. Same rule
     // applies to the columns.
     bool Check_word(char *word, int posr, int posc, int rdir, int cdir);
-    
-    // Functions to be completed by the students.
-    
+      
     // Finding a word in the grid. It must return the position [rpos,
     // cpos] where it found the word and the directions in which it
     // found it. An example is given for horizontal forward and diagonal
-    // backwards. The student must complete the search in 8 directions.
+    // backwards. 
     bool Find_word(char *word, int &posr, int &posc, int &rdir, int &cdir);
     
-    // This function should overwrite a word of the given size in the
-    // grid by spaces, starting from the given position and following
-    // the directions indicated by the appropriate parameters. We'll
-    // assume that the word has been found at that position, but if we
-    // get the function gets out of the grid because of an error
-    // somewhere else in the program, the function should output an
-    // error message.
+    // Overwrite a word of the given size in the grid
+    // by spaces, starting from the given position and following the
+    // directions indicated by the appropriate parameters. Assuming
+    // that the word has been found at that position, but if the function
+    // gets out of the grid because of an error somewhere else in the
+    // program, the function should output an error message. 
     void Delete_word(int size, int posr, int posc, int rdir, int cdir);
     
-    // We assume here that the master has deleted all of the letters
+    // Assume the master has deleted all of the letters
     // that belong to a word from the table, meaning that it has
-    // overwriten them by spaces. This function should print the
+    // overwriten them by spaces. This function prints the
     // remaining letters with just a space between them and with no
     // endlines except for one at the end, and also tell the user in the
     // beginning that this is the secret message or solution to the

@@ -1,9 +1,6 @@
 /************************************************************************
   File:          common_decl.h                              
-  Description:   Common declarations between the master and the workers.
-                                                         
-  Author:        Dana Vrajitoru  
-  Course:        B424 B524 Parallel Programming                        
+  Description:   Common declarations between the master and the workers.                  
   Date:          November 2018
 ************************************************************************/
 
